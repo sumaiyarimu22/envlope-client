@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Button from "../components/Button";
+import FormControl from "../components/FormControl";
 import SectionTitle from "../components/sectionTitle";
 
 const Register = () => {
@@ -9,29 +11,50 @@ const Register = () => {
   });
 
   const handleRegister = (e) => {
-    e.preventDefault;
+    e.preventDefault();
+    console.log(fromFields);
+
+    //clear
+    setFromFields({
+      name: "",
+      email: "",
+      password: "",
+    });
   };
 
   return (
-    <div className="register flex flex-col justify-center items-center">
+    <div className="register flex flex-col justify-center items-center mt-16">
       <form onSubmit={handleRegister} className="flex flex-col gap-4">
         <SectionTitle title={"Register..."} />
 
-        <div className="form-control flex flex-col gap-1">
-          <label htmlFor="name" className="cursor-pointer">
-            name
-          </label>
-          <input
-            type="text"
-            placeholder="Write your name"
-            id="name"
-            value={fromFields.name}
-            onChange={(e) =>
-              setFromFields({ ...fromFields, name: e.target.value })
-            }
-            className="border py-2 px-4 w-[20rem] rounded outline-none focus:border-violet-500"
-          />
-        </div>
+        <FormControl
+          label="name"
+          labelInner="Name"
+          inputType="text"
+          placeholder="Write your name"
+          fromFields={fromFields}
+          setFromFields={setFromFields}
+        />
+
+        <FormControl
+          label="email"
+          labelInner="Email address"
+          inputType="email"
+          placeholder="Write your email"
+          fromFields={fromFields}
+          setFromFields={setFromFields}
+        />
+
+        <FormControl
+          label="password"
+          labelInner="password"
+          inputType="password"
+          placeholder="Write your password"
+          fromFields={fromFields}
+          setFromFields={setFromFields}
+        />
+
+        <Button text="Register" submit />
       </form>
     </div>
   );
