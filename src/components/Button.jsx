@@ -1,3 +1,5 @@
+import React from "react";
+
 const Button = ({ text, submit, logout, handleLogout }) => {
   return (
     <button
@@ -14,4 +16,4 @@ const Button = ({ text, submit, logout, handleLogout }) => {
   );
 };
 
-export default Button;
+export default React.memo(Button);

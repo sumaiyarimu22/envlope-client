@@ -1,5 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Button from "../components/Button";
+import ErrorMessgae from "../components/ErrorMessgae";
 import FormControl from "../components/FormControl";
 import SectionTitle from "../components/sectionTitle";
 import { useSignup } from "../hooks/useSIgnup";
@@ -54,14 +55,10 @@ const Register = () => {
 
         <Button text={isLoading ? "Registering..." : "Register"} submit />
 
-        {error && (
-          <p className="bg-red-50 text-rose-500 p-4 border border-rose-300 rounded">
-            {error}
-          </p>
-        )}
+        {error && <ErrorMessgae error={error} />}
       </form>
     </div>
   );
 };
 
-export default Register;
+export default React.memo(Register);
