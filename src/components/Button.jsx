@@ -1,6 +1,7 @@
-const Button = ({ text, submit, logout }) => {
+const Button = ({ text, submit, logout, handleLogout }) => {
   return (
     <button
+      onClick={handleLogout ? handleLogout : null}
       type={submit ? "submit" : ""}
       className={` text-white py-2 rounded  ${
         logout

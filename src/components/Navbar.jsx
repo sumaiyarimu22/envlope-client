@@ -2,7 +2,13 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import Button from "../components/Button";
 const Navbar = () => {
-  const { user } = useAuthContext();
+  const { user, dispatch } = useAuthContext();
+
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+    localStorage.removeItem("user");
+  };
+
   return (
     <header className="py-8 flex justify-between">
       <div className="logo">
@@ -39,7 +45,7 @@ const Navbar = () => {
                 {user.name}
               </span>
             </p>
-            <Button text="Logout" logout />
+            <Button handleLogout={handleLogout} text="Logout" logout />
           </div>
         )}
       </nav>
