@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "../components/Button";
 import FormControl from "../components/FormControl";
 import SectionTitle from "../components/sectionTitle";
+import { useSignup } from "../hooks/useSIgnup";
 
 const Register = () => {
   const [fromFields, setFromFields] = useState({
@@ -10,15 +11,13 @@ const Register = () => {
     password: "",
   });
 
-  const handleRegister = (e) => {
+  const { signup, isLoading, error } = useSignup();
+
+  const handleRegister = async (e) => {
     e.preventDefault();
 
-    //clear
-    setFromFields({
-      name: "",
-      email: "",
-      password: "",
-    });
+    // console.log(fromFields.name, fromFields.email, fromFields.password);
+    await signup(fromFields.name, fromFields.email, fromFields.password);
   };
 
   return (
@@ -53,7 +52,13 @@ const Register = () => {
           setFromFields={setFromFields}
         />
 
-        <Button text="Register" submit />
+        <Button text={isLoading ? "Registering..." : "Register"} submit />
+
+        {error && (
+          <p className="bg-red-50 text-rose-500 p-4 border border-rose-300 rounded">
+            {error}
+          </p>
+        )}
       </form>
     </div>
   );

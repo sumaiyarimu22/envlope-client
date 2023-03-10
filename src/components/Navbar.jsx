@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
-
+import { useAuthContext } from "../hooks/useAuthContext";
+import Button from "../components/Button";
 const Navbar = () => {
+  const { user } = useAuthContext();
   return (
     <header className="py-8 flex justify-between">
       <div className="logo">
@@ -12,27 +14,34 @@ const Navbar = () => {
         </Link>
       </div>
       <nav>
-        <div className="flex gap-5">
-          <Link
-            to="/login"
-            className="hover:text-violet-500 hover:underline duration-300 underline-offset-2"
-          >
-            Login
-          </Link>
-          <Link
-            to="/register"
-            className="hover:text-violet-500 hover:underline duration-300 underline-offset-2"
-          >
-            Register
-          </Link>
-        </div>
+        {!user && (
+          <div className="flex gap-5">
+            <Link
+              to="/login"
+              className="hover:text-violet-500 hover:underline duration-300 underline-offset-2"
+            >
+              Login
+            </Link>
+            <Link
+              to="/register"
+              className="hover:text-violet-500 hover:underline duration-300 underline-offset-2"
+            >
+              Register
+            </Link>
+          </div>
+        )}
 
-        {/* <div>
-          <p>
-            Logged in as:{" "}
-            <span className="text-violet-500 italic">Sumaiya</span>
-          </p>
-        </div> */}
+        {user && (
+          <div className="flex gap-4 items-center">
+            <p>
+              Logged in as:
+              <span className="text-violet-500 italic capitalize">
+                {user.name}
+              </span>
+            </p>
+            <Button text="Logout" logout />
+          </div>
+        )}
       </nav>
     </header>
   );
